@@ -45,14 +45,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func handleEvent(for region: CLRegion!) {
+        // get location name from Core Data Manager
+        guard let name = CoreDataManager.fetchContextFor(identifier: region.identifier) else { return }
+        
         // Show an alert if application is active
         if UIApplication.shared.applicationState == .active {
-            window?.rootViewController?.showAlert(withTitle: nil, message: "You are near \(region.identifier)")
+            window?.rootViewController?.showAlert(withTitle: nil, message: "You are near \(name)")
         } else {
             // Otherwise present a local notification
-//            guard let body = note(from: region.identifier) else { return }
             let notificationContent = UNMutableNotificationContent()
-            notificationContent.body = "You are near \(region.identifier)"
+            notificationContent.body = "You are near \(name)"
             notificationContent.sound = UNNotificationSound.default
             notificationContent.badge = UIApplication.shared.applicationIconBadgeNumber + 1 as NSNumber
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
@@ -67,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    fileprivate func registerNotification() {
+    func registerNotification() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .carPlay, .sound]) { (granted, error) in
             if let error = error {
                 print("Error: \(error)")

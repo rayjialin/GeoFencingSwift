@@ -48,6 +48,9 @@ extension ViewController {
             if let latitude = context.value(forKey: "latitude") as? Double, let longitude = context.value(forKey: "longitude") as? Double {
                 annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             }
+            if let identifier = context.value(forKey: "identifier") as? String {
+                annotation.identifier = identifier
+            }
             annotations.append(annotation)
         }
         return annotations
@@ -82,11 +85,20 @@ extension ViewController {
         locationManager.startMonitoring(for: fenceRegion)
     }
     
+    // MARK: stop monitoring
     func stopMonitoringFor(annotation: WVAnnotation) {
         for region in locationManager.monitoredRegions {
             guard let circularRegion = region as? CLCircularRegion, circularRegion.identifier == annotation.identifier else { continue }
             locationManager.stopMonitoring(for: circularRegion)
         }
+    }
+    
+    // MARK: remove annotation
+    func remove(annotation : WVAnnotation) {
+        CoreDataManager.removeContextFor(annotation: annotation)
+        mapView.removeAnnotation(annotation)
+        removeRadiusOverlayFor(annotation: annotation)
+        stopMonitoringFor(annotation: annotation)
     }
     
     // MARK: remove overlay
@@ -149,11 +161,3 @@ extension MKMapView {
     }
 }
 
-extension UIColor {
-    static var random: UIColor {
-        return UIColor(red: .random(in: 0...1),
-                       green: .random(in: 0...1),
-                       blue: .random(in: 0...1),
-                       alpha: 1.0)
-    }
-}

@@ -47,19 +47,21 @@ class ViewController: UIViewController {
         let touchAt = recognizer.location(in: mapView)
         let touchAtCoordinate = mapView.convert(touchAt, toCoordinateFrom: mapView)
         
-        confirmLocationAlert(latitude: touchAtCoordinate.latitude, longitude: touchAtCoordinate.longitude) { locationNew in
+        confirmLocationAlert(latitude: touchAtCoordinate.latitude, longitude: touchAtCoordinate.longitude) { locationNew, uuid in
             
             let newAnnotation = WVAnnotation()
             newAnnotation.coordinate = touchAtCoordinate
             newAnnotation.title = locationNew
+            newAnnotation.identifier = uuid
             self.mapView.addAnnotation(newAnnotation)
             self.addCircleOverlayFor(annotation: newAnnotation)
+            self.startMonitoringFor(annotation: newAnnotation)
         }
     }
     
     
     // Alert Actions
-    func confirmLocationAlert(latitude: Double, longitude: Double, completion: @escaping (String) -> ()) {
+    func confirmLocationAlert(latitude: Double, longitude: Double, completion: @escaping (String, String) -> ()) {
         let alert = UIAlertController(title: "Location Name", message: "Create a name for this location", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
@@ -69,10 +71,11 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             guard let textField = alert?.textFields?[0].text else { return }
             
+            let uuid = NSUUID().uuidString
             // save pin dropped location to core data
-            CoreDataManager.saveContext(name: textField, street: nil, city: nil, state: nil, zipCode: nil, latitude: latitude, longitude: longitude)
+            CoreDataManager.saveContext(name: textField, street: nil, city: nil, state: nil, zipCode: nil, latitude: latitude, longitude: longitude, identifier: uuid)
             
-            completion(textField)
+            completion(textField, uuid)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

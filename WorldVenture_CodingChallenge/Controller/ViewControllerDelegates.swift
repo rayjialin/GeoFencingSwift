@@ -12,14 +12,14 @@ import MapKit
 extension ViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
             locationManager.requestLocation()
         }
+        mapView.showsUserLocation = (status == .authorizedAlways)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            print("location::: \(location)")
             let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
@@ -37,14 +37,15 @@ extension ViewController: CLLocationManagerDelegate {
 
 extension ViewController: HandleMapSearch {
     func dropPinZoomIn(placemark: MKPlacemark) {
-        
         // save search result location to core data
-        CoreDataManager.saveContext(name: placemark.name, street: placemark.thoroughfare, city: placemark.locality, state: placemark.administrativeArea, zipCode: placemark.postalCode, latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude)
+        let uuid = NSUUID().uuidString
+        CoreDataManager.saveContext(name: placemark.name, street: placemark.thoroughfare, city: placemark.locality, state: placemark.administrativeArea, zipCode: placemark.postalCode, latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude, identifier: uuid)
         
         selectedPin = placemark
         let annotation = WVAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
+        annotation.identifier = uuid
         if let city = placemark.locality,
             let state = placemark.administrativeArea {
             annotation.subtitle = "\(city) \(state)"
@@ -52,6 +53,7 @@ extension ViewController: HandleMapSearch {
         
         mapView.addAnnotation(annotation)
         addCircleOverlayFor(annotation: annotation)
+        startMonitoringFor(annotation: annotation)
     }
 }
 
@@ -92,7 +94,10 @@ extension ViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
+        if let annotation = view.annotation as? WVAnnotation {
+            remove(annotation: annotation)
+            
+        }
     }
 }
 

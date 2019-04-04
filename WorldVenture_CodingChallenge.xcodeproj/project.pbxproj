@@ -20,9 +20,9 @@
 		38499288224338D400397148 /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38499287224338D400397148 /* ViewControllerExtension.swift */; };
 		3849928A22433B4900397148 /* ViewControllerDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3849928922433B4900397148 /* ViewControllerDelegates.swift */; };
 		3849928C224340FA00397148 /* WVAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3849928B224340FA00397148 /* WVAnnotation.swift */; };
-		38499291224351A400397148 /* Apple.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3849928E224351A400397148 /* Apple.gpx */; };
+		38499291224351A400397148 /* DFW.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3849928E224351A400397148 /* DFW.gpx */; };
 		38499292224351A400397148 /* SimulatedLocations.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3849928F224351A400397148 /* SimulatedLocations.gpx */; };
-		38499293224351A400397148 /* Google.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 38499290224351A400397148 /* Google.gpx */; };
+		38499293224351A400397148 /* WorldVenture.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 38499290224351A400397148 /* WorldVenture.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,9 +53,9 @@
 		38499287224338D400397148 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 		3849928922433B4900397148 /* ViewControllerDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerDelegates.swift; sourceTree = "<group>"; };
 		3849928B224340FA00397148 /* WVAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVAnnotation.swift; sourceTree = "<group>"; };
-		3849928E224351A400397148 /* Apple.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Apple.gpx; sourceTree = "<group>"; };
+		3849928E224351A400397148 /* DFW.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DFW.gpx; sourceTree = "<group>"; };
 		3849928F224351A400397148 /* SimulatedLocations.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SimulatedLocations.gpx; sourceTree = "<group>"; };
-		38499290224351A400397148 /* Google.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Google.gpx; sourceTree = "<group>"; };
+		38499290224351A400397148 /* WorldVenture.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = WorldVenture.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,8 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				381DF1CF2241B9EF00DB2409 /* Assets.xcassets */,
-				3849928E224351A400397148 /* Apple.gpx */,
-				38499290224351A400397148 /* Google.gpx */,
+				3849928E224351A400397148 /* DFW.gpx */,
+				38499290224351A400397148 /* WorldVenture.gpx */,
 				3849928F224351A400397148 /* SimulatedLocations.gpx */,
 				3849927D2241F92200397148 /* FavoriteLocationModel.xcdatamodeld */,
 			);
@@ -249,8 +249,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				38499292224351A400397148 /* SimulatedLocations.gpx in Resources */,
-				38499291224351A400397148 /* Apple.gpx in Resources */,
-				38499293224351A400397148 /* Google.gpx in Resources */,
+				38499291224351A400397148 /* DFW.gpx in Resources */,
+				38499293224351A400397148 /* WorldVenture.gpx in Resources */,
 				381DF1D32241B9EF00DB2409 /* LaunchScreen.storyboard in Resources */,
 				381DF1D02241B9EF00DB2409 /* Assets.xcassets in Resources */,
 				381DF1CE2241B9ED00DB2409 /* Main.storyboard in Resources */,
